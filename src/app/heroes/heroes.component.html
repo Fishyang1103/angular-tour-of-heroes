@@ -1,0 +1,41 @@
+<!-- 使用內建的 Pipe，讓 hero.name 全部大寫呈現 -->
+<!-- <h2>{{ hero.name | uppercase }} Details</h2>
+<div><span>id: </span>{{ hero.id }}</div>
+<div><span>name: </span>{{ hero.name }}</div> -->
+
+<!-- input 雙向綁定 -->
+<!-- 這裡把 hero.name 屬性繫結到了 HTML 的 textbox 元素上，以便資料流可以雙向流動：從 hero.name 屬性流動到 textbox，並且從 textbox 流回到 hero.name。 -->
+<!-- <div>
+  <label for="name">Hero name: </label>
+  <input id="name" [(ngModel)]="hero.name" placeholder="name" />
+</div> -->
+
+<!-- 使用 mock-heroes.ts 裡面的假資料，用 ngFor 呈現 -->
+<h2>My Heroes</h2>
+<ul class="heroes">
+  <!-- let hero of heros，意思就是從 ts 檔中的 heroes 陣列逐一取出元素 -->
+  <!-- 加上 click 事件繫結 -->
+  <!-- .selected 套用到 css 裡面的樣式 -->
+  <li
+    *ngFor="let hero of heros"
+    (click)="onSelect(hero)"
+    [class.selected]="hero === selectedHero"
+  >
+    <span class="badge">{{ hero.id }}</span> {{ hero.name }}
+  </li>
+</ul>
+
+<!-- click 之後顯示的 hero details，沒加 ngIf 會報錯，因為還沒選，ngIf 有值才出現 -->
+<!-- 如果 selectedHero 沒有被賦予值（undefined），就不載入這個<div>區塊 -->
+<!-- <div *ngIf="selectedHero">
+  <h2>{{ selectedHero.name | uppercase }} Details</h2>
+  <div><span>id: </span>{{ selectedHero.id }}</div>
+  <div>
+    <label for="hero-name">Hero name: </label>
+    <input id="hero-name" [(ngModel)]="selectedHero.name" placeholder="name" />
+  </div>
+</div> -->
+
+<!-- 將被放置組件的 hero 變數，綁定到目前組件的 selectedHero 變數上。這同時也需要ts檔中的@Input 配合，才能接收資料。 -->
+<!-- 流程：清單項目被點擊，使得 selectedHero 被賦予值。同時由於「屬性綁定」的效果，selectedHero 的值會輸入到目標組件 ts 檔的 hero 變數。再透過插值綁定，hero-detail 的html 檔即可顯示資料。 -->
+<app-hero-detail [hero]="selectedHero"></app-hero-detail>

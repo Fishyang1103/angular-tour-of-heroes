@@ -1,0 +1,8 @@
+<!-- *ngIf 條件判斷，當 messages 陣列有元素時才會顯示這個區塊 -->
+<div *ngIf="messageService.messages.length">
+  <h2>Messages</h2>
+  <!-- click 點擊事件，當這個按鈕被點擊時，會執行service的clear方法 -->
+  <button class="clear" (click)="messageService.clear()">clear</button>
+  <!-- *ngFor 訊息列表迴圈，將 messages 陣列的元素，透過插值綁定列示出來 -->
+  <div *ngFor="let msg of messageService.messages">{{ msg }}</div>
+</div>
